@@ -14,7 +14,6 @@ class Type(Ast):
     def __str__(self):
         return "type - {0}".format(self.val)
 
-
 # types declaration:
 class Int(AST):
     def __init__(self,val):
@@ -75,6 +74,7 @@ class Assignment(AST):
             if(i<len(self.operateurs)):
                 string = string + "\n   " + "{0}".format(self.operateurs)
         return string
+
 class IfStatement(Ast):
     def __init__(self,val):
         self.condition = val
