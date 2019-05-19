@@ -107,3 +107,9 @@ class WhileStatement(Ast):
         for stmt in self.statements:
             string = string + "\n - {0}".format(stmt)
         return string
+
+class Binary(Ast):
+    def __init__(self):
+
+    def __str__(self):
+        
