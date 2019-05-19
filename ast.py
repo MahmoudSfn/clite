@@ -41,10 +41,25 @@ class Bool(AST):
         return "float - {0}".format(self.val)
 # endtypes
 
-class Expression(AST):
+class Node(AST):
     def __init__(self):
 
     def __str__(self):
+
+class Expression(AST):
+    def __init__(self):
+        self.simpleExpr = []
+        self.operateurs = []
+    
+    def __str__(self):
+        string = "Expression "
+        i = 0
+        for exp in self.simpleExpr:
+            string = string + "\n   " + "{0}".format(exp)
+            if(i<len(self.operateurs)):
+                string = string + "\n   " + "{0}".format(self.operateurs)
+            i+=1
+        return string
 
 class Assignment(AST):
     def __init__(self):
