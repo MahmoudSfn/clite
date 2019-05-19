@@ -62,10 +62,19 @@ class Expression(AST):
         return string
 
 class Assignment(AST):
-    def __init__(self):
+    def __init__(self, left):
+        self.left = left
+        self.args = []
+        self.operateurs = []
 
     def __str__(self):
-
+        string = "Assignement "+"{0}".format(self.left)
+        i=0
+        for arg in self.args:
+            string = string + "\n   " + "{0}".format(arg)
+            if(i<len(self.operateurs)):
+                string = string + "\n   " + "{0}".format(self.operateurs)
+        return string
 class IfStatement(Ast):
     def __init__(self,val):
         self.condition = val
