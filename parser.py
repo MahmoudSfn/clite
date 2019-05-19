@@ -5,7 +5,7 @@ from indent import Indent
 class Parser:
 
     TYPE = ['INT', 'FLOAT', 'CHAR','BOOL']
-    STATEMENT_STARTERS = ['SEMICOLON', 'LBRACE', 'RBRACE', 'IDENTIFIER', 'IF', 'WHILE']
+    STATEMENT_STARTERS = ['SEMICOLON', 'LBRACE', 'IDENTIFIER', 'IF', 'WHILE']
     REL_OP = ['LT', 'LTE', 'GT', 'GTE']
     NUM_OP = ['ADD','SUB']
     MUL_OP = ['MUL', 'DIV']
@@ -116,7 +116,7 @@ class Parser:
         if self.show_next().kind in self.TYPE:
             self.accept_it()
         else:
-            print "parsing error for type"
+            print("parsing error for type")
         self.indentator.dedent()
     
     def parse_statements(self): # done
@@ -148,20 +148,18 @@ class Parser:
         elif nextstatement == 'WHILE':
             self.parse_while_statement()
         else:
-            print "Error parse statement"
-            sys.exit()
-
+            self.parse_expression()
         self.indentator.dedent() 
 
     def parse_assignement_statement(self): # done
         self.indentator.indent('Parsing Assignement Statement')
-        self.expect('IDENTIFIER') # TODO: [[Expressions]]
+        self.expect('IDENTIFIER')
         if self.show_next().kind == 'LBRACK':
             self.accept_it()
             self.parse_expression()
             self.expect('RBRACK')
         
-        self.expect('ASSIGN')
+        # self.expect('ASSIGN')
         self.parse_expression()
         self.expect('SEMICOLON')
         self.indentator.dedent() 
@@ -275,22 +273,22 @@ class Parser:
         self.indentator.dedent()
         
     def parse_primary(self): # done
-        self.indentator.indent('parsing ')
+        self.indentator.indent('parsing primary')
         # Identifier[[Expression]] | Literal | (Expression) | Type(Expression)
         if self.show_next().kind == 'IDENTIFIER':
             self.accept_it()
-            if self.show_next().kind == 'LBRACKET':
-                self.accept_it()
-                self.parse_expression()
-                self.expect('LBRACKET')
+        elif self.show_next().kind == 'LBRACKET':
+            self.accept_it()
+            self.parse_expression()
+            self.expect('RBRACKET')
         elif self.show_next().kind in self.LITERAL:
             self.accept_it()
         elif self.show_next().kind == "LPAREN":
             self.accept_it()
             self.parse_expression()
             self.expect('RPAREN')
-        else: 
-            sys.exit()
+        # else: 
+            # sys.exit()
         self.indentator.dedent()
         
     '''

@@ -15,13 +15,71 @@ class Type(Ast):
         return "type - {0}".format(self.val)
 
 
-class (AST):
+# types declaration:
+class Int(AST):
+    def __init__(self,val):
+        self.val = val
+    def __str__(self):
+        return "int - {0}".format(self.val)
+
+class Double(AST):
+    def __init__(self,val):
+        self.val = val
+    def __str__(self):
+        return "double - {0}".format(self.val)
+
+class Float(AST):
+    def __init__(self,val):
+        self.val = val
+    def __str__(self):
+        return "float - {0}".format(self.val)
+
+class Bool(AST):
+    def __init__(self,val):
+        self.val = val
+    def __str__(self):
+        return "float - {0}".format(self.val)
+# endtypes
+
+class Expression(AST):
     def __init__(self):
 
     def __str__(self):
 
-
-class (AST):
+class Assignment(AST):
     def __init__(self):
 
     def __str__(self):
+
+class IfStatement(Ast):
+    def __init__(self,val):
+        self.condition = val
+        self.statements = []
+        
+    def __str__(self):
+        string = "if\n condition - {0}".format(self.condition)
+        for statement in self.statements:
+            string = string + "\n - {0}".format(statement)
+        return string
+
+class ForStatement(Ast):
+    def __init__(self, statement, expression):
+        self.stmt = statement
+        self.expr = expression
+        self.statements = []
+    
+    def __str__(self):
+        string = "for\n {0} {1} {2}".format(self.stmt, self.expr)
+        for stmt in self.statements:
+            string = string +"\n - {0}".format(stmt)
+        return string
+
+class WhileStatement(Ast):
+    def __init__(self, expr):
+        self.expr = expr
+        self.statements = []
+    def __str__(self):
+        string = "while\n - {0}".format(self.expr)
+        for stmt in self.statements:
+            string = string + "\n - {0}".format(stmt)
+        return string
