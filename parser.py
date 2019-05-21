@@ -208,44 +208,69 @@ class Parser:
             self.parse_equality()
         self.indentator.dedent()
 
-
-    def parse_equality(self): # done
-        #self.indentator.indent('parsing equality')
+    def parse_equality(self): # done 1
+        self.indentator.indent('parsing equality')
         EQOP = ['EQ', 'NEQ']
         print(str(self.show_next().kind))
-        lhs=self.parse_relation()
+        self.parse_relation()
         if self.show_next().kind in EQOP:
-            op=self.accept_it()
-            rhs=self.parse_relation()
-            return Binary(lhs,op,rhs)    
-        return lhs
+            self.accept_it()
+            self.parse_relation()
+        self.indentator.dedent()
 
-    def parse_relation(self): # done
+    def parse_relation(self): # done 1
         self.indentator.indent('parsing relation')
-        e1=self.parse_addition()
+        self.parse_addition()
         while self.show_next().kind in self.REL_OP:
-            op=self.accept_it()
-            e2=self.parse_addition()
-            e1=Binary(e1,op,e2)
-        return e1
+            self.accept_it()
+            self.parse_addition()
+        self.indentator.dedent()
+        '''
+        def parse_equality(self): # done
+            #self.indentator.indent('parsing equality')
+            EQOP = ['EQ', 'NEQ']
+            print(str(self.show_next().kind))
+            lhs=self.parse_relation()
+            if self.show_next().kind in EQOP:
+                op=self.accept_it()
+                rhs=self.parse_relation()
+                return Binary(lhs,op,rhs)    
+            return lhs
 
-    def parse_addition(self): # done
-        self.indentator.indent('parsing addition')
-        t1=self.parse_term()
-        while self.show_next().kind in self.NUM_OP:
-            op=self.accept_it()
-            t2=self.parse_term()
-            t1=lit(t1,op,t2)
-        return e1
-    def parse_term(self): # done
-        self.indentator.indent('parsing term')
-        e1=self.parse_factor()
-        if self.show_next().kind in self.MUL_OP:
-            term=self.accept_it()
-            e2=self.parse_factor()
-            e1=lit(e1,op,e2)
-        return e1
+        def parse_relation(self): # done
+            self.indentator.indent('parsing relation')
+            e1=self.parse_addition()
+            while self.show_next().kind in self.REL_OP:
+                op=self.accept_it()
+                e2=self.parse_addition()
+                e1=Binary(e1,op,e2)
+            return e1
         
+        def parse_addition(self): # done
+            self.indentator.indent('parsing addition')
+            t1=self.parse_term()
+            while self.show_next().kind in self.NUM_OP:
+                op=self.accept_it()
+                t2=self.parse_term()
+                t1=lit(t1,op,t2)
+            return e1
+        def parse_term(self): # done
+            self.indentator.indent('parsing term')
+            e1=self.parse_factor()
+            if self.show_next().kind in self.MUL_OP:
+                term=self.accept_it()
+                e2=self.parse_factor()
+                e1=lit(e1,op,e2)
+            return e1
+        '''
+
+    def parse_addition(self): # done 1
+        self.indentator.indent('parsing addition')
+        self.parse_term()
+        if self.show_next().kind in self.NUM_OP:
+            self.accept_it()
+            self.parse_term()
+        self.indentator.dedent()
         
     def parse_term(self): # done
         self.indentator.indent('parsing term')
@@ -305,3 +330,6 @@ class Parser:
             sys.exit()
         self.indentator.dedent()
         '''
+
+
+

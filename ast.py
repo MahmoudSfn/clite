@@ -40,10 +40,7 @@ class Bool(AST):
         return "float - {0}".format(self.val)
 # endtypes
 
-class Node(AST):
-    def __init__(self):
 
-    def __str__(self):
 
 class Expression(AST):
     def __init__(self):
@@ -108,8 +105,4 @@ class WhileStatement(Ast):
             string = string + "\n - {0}".format(stmt)
         return string
 
-class Binary(Ast):
-    def __init__(self):
-
-    def __str__(self):
         
